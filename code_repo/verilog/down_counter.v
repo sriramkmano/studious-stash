@@ -1,19 +1,19 @@
 module down_counter(
 
-     input clk,
-     input nrst,
-     input load,
-     input divide_by_2,
+     input wire logic clk,
+     input wire logic nrst,
+     input wire logic gload,
+     input wire logic divide_by_2,
      
-     input      [7:0] preload_count,
-     output reg [7:0] count_out,
+     input wire logic  [7:0] preload_count,
+     output logic      [7:0] count_out,
   	 
-     output zero
+     output logic            zero
 );
 
- always@(posedge clk or negedge nrst)
+ always_ff @(posedge clk or negedge nrst)
   begin
-    if(nrst & !load)
+    if(~nrst)
       //When reset in high since this is a down counter set all bits to high,
       //so we can start counting down after reset is deasserted
   		count_out <= 8'hFF;
